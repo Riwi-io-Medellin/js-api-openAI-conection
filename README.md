@@ -1,79 +1,124 @@
-# Reto JS Básico: Conecta con la API de OpenAI
+# Chat JS con OpenAI
 
-Este reto está diseñado para quienes están comenzando con JavaScript y desean aprender a **consumir APIs externas** desde el navegador. Utilizaremos la API de OpenAI como caso práctico concreto para que experimentes cómo enviar datos, recibir respuestas y mostrar resultados en pantalla.
+Una aplicación web tipo chat que se conecta con la API de OpenAI para generar respuestas de inteligencia artificial a las preguntas del usuario.
 
----
+## Descripción del Proyecto
 
-## Objetivo
+Este proyecto es una aplicación web interactiva que permite a los usuarios mantener una conversación con un modelo de IA de OpenAI. La aplicación está construida con JavaScript y demuestra la implementación de conceptos fundamentales como objetos, closures, callbacks, promesas, async/await, y clases.
 
-Construir una pequeña aplicación web tipo "chat" donde el usuario pueda escribir una pregunta, enviarla a la API de OpenAI y ver la respuesta generada por la inteligencia artificial directamente en el navegador.
+## Estructura del Proyecto
 
-El objetivo principal es que comprendas el flujo completo de consumo de una API REST desde JavaScript puro:
-- Cómo estructurar una petición HTTP usando `fetch()`
-- Cómo enviar datos y recibir respuestas en formato JSON
-- Cómo manejar errores y mostrar mensajes claros al usuario
-- Cómo manipular el DOM para mostrar los resultados
+```
+/js-challenge-week-two
+  ├── assets/
+  │   ├── css/style.css      # Estilos de la aplicación
+  │   └── js/main.js         # Lógica principal del chat
+  ├── index.html             # Estructura HTML de la aplicación
+  ├── GUIA-PASO-A-PASO.md    # Guía detallada del desarrollo
+  ├── README-CONVENCIONES.md # Convenciones de código
+  └── README.md              # Este archivo
+```
 
-Además, aprenderás buenas prácticas de seguridad para el manejo de claves API y la importancia de **no exponer secretos en repositorios públicos**.
+## Características Principales
 
----
+La aplicación implementa los siguientes conceptos de JavaScript:
 
-## Instrucciones
-- Debes consumir la API de OpenAI (por ejemplo, usando `fetch`) y mostrar las respuestas en el navegador (puedes simular un chat simple).
-- El manejo de la API Key lo hará el instructor, tú solo debes dejar el espacio o la variable preparada para colocarla.
-- Implementa manejo básico de errores y muestra mensajes claros si algo sale mal.
-- No uses frameworks ni librerías externas (solo JS puro).
+### Objetos y Clases
+- Utiliza la clase `ChatMessage` para modelar los mensajes con propiedades `autor`, `contenido` y `timestamp`
+- Mantiene un historial de conversaciones como un array de objetos mensaje
 
-### Qué debes entregar
-- Un archivo HTML básico con la estructura mínima.
-- Un archivo CSS opcional para estilos simples (no es el foco del reto).
-- Un archivo JS donde esté toda la lógica de conexión, envío de mensajes y manejo de respuestas de la API.
+### Funciones y Scope
+- Implementa closures para contar las preguntas del usuario
+- Demuestra el concepto de hoisting con funciones declaradas
+- Utiliza callbacks para manejar respuestas asíncronas
 
-### Qué se evaluará
-- Que logres conectarte exitosamente a la API de OpenAI y mostrar respuestas.
-- Que entiendas y expliques cómo funciona el flujo de petición/respuesta de una API.
-- Que se manejen errores básicos (por ejemplo, si la API responde con error, mostrarlo en pantalla).
+### Asincronía
+- Consume la API de OpenAI utilizando `async/await` y `fetch`
+- Implementa manejo de errores con bloques `try/catch`
+- Simula carga de mensajes antiguos con promesas
+- Utiliza `setTimeout` para crear efectos de "typing" de la IA
 
-**Recuerda:** El foco es aprender a consumir APIs desde JavaScript y entender el flujo de datos, no el diseño visual.
+## Tecnologías Utilizadas
 
----
+- HTML5
+- CSS3
+- JavaScript (ES6+)
+- API de OpenAI
+- Node.js
+- Express
+- dotenv
+- node-fetch
 
-## Requisitos
+## Funcionalidades Implementadas
 
-- Un archivo `.html` donde pegues el script JS.
-- Un entorno simple: navegador + editor de código como VSCode.
+1. **Interfaz de chat** con diseño responsive
+2. **Modelado de mensajes** como objetos JS
+3. **Historial de conversaciones** persistente durante la sesión
+4. **Renderizado dinámico** de mensajes en el DOM
+5. **Contador de preguntas** utilizando closures
+6. **Callbacks** para procesar respuestas de la API
+7. **Consumo de API** con async/await y manejo de errores
+8. **Simulación de carga** de mensajes antiguos
+9. **Efecto de escritura** para simular que la IA está escribiendo
+10. **Manejo de estados** de carga y errores en la interfaz
+11. **Modularización** del código en funciones separadas
+12. **Diseño visual** moderno y amigable
 
----
+## Cómo Usar la Aplicación
 
-## Paso a Paso sugerido
+1. Clona este repositorio:
+   ```bash
+   git clone https://github.com/Riwi-io-Medellin/js-api-openAI-conection
 
-A continuación tienes una guía sugerida para conectar tu aplicación con la API de OpenAI:
+   cd js-challenge-week-two
+   ```
 
-1. **Prepara tu estructura básica**
-   - Crea un archivo `index.html` con un formulario simple para enviar preguntas y un área para mostrar respuestas.
-   - Crea un archivo `main.js` (o como prefieras llamarlo) donde pondrás toda la lógica de conexión con la API.
-   - (Opcional) Un archivo CSS para estilos básicos.
+2. Instala las dependencias necesarias:
+   ```bash
+   npm install
+   ```
 
-2. **Obtén tu API Key de OpenAI**
-   - **No subas tu API Key al repositorio ni la compartas públicamente.**
-   - Los tutores entregarán las API Keys físicamente y las distribuirán a los líderes de célula.
+3. Configura el backend:
+   - Crea un archivo `.env` en la raíz del proyecto
+   - Añade tu API Key de OpenAI:
+     ```
+     OPENAI_API_KEY=tu_api_key_aqui
+     ```
 
-3. **Conecta con la API de OpenAI usando JavaScript**
-   - En tu archivo JS, crea una función que use `fetch()` para hacer una petición POST a la API de OpenAI (por ejemplo, a `https://api.openai.com/v1/chat/completions`).
-   - Incluye tu API Key en el header `Authorization` (ejemplo: `Bearer TU_API_KEY`).
-   - Envía el mensaje del usuario en el cuerpo de la petición, siguiendo el formato que pide la documentación.
-   - Muestra la respuesta de la API en el navegador.
-   - Maneja posibles errores y muestra mensajes claros si algo sale mal.
+4. Inicia el servidor backend:
+   ```bash
+   # Si tienes configurado el script en package.json
+   npm start
 
-4. **Seguridad**
-   - Nunca subas tu API Key a GitHub ni la dejes en archivos públicos. Usa variables de entorno o pide que el usuario la ingrese manualmente si es necesario.
+   # O directamente con Node.js
+   node server.js
+   ```
+   El servidor debería estar ejecutándose en http://localhost:3001
 
-5. **Recursos útiles**
-   - Documentación oficial de OpenAI para la API de chat:  
-     https://platform.openai.com/docs/guides/text?api-mode=chat
-   - Ejemplo de uso con `fetch`:  
-     https://platform.openai.com/docs/api-reference/chat/create
-   - Documentación general (overview):  
-     https://platform.openai.com/docs/overview
+5. Abre `index.html` en tu navegador:
+   - Puedes abrir directamente el archivo HTML en tu navegador
+   - O usar un servidor local como Live Server en VSCode
 
----
+6. Interactúa con la aplicación:
+   - Escribe tu mensaje en el campo de texto
+   - Presiona Enter o haz clic en el botón de enviar
+   - Espera la respuesta de la IA
+
+## Configuración del Backend
+
+Para usar esta aplicación, necesitas configurar un backend que maneje las peticiones a la API de OpenAI. El frontend está configurado para hacer peticiones a `http://localhost:3001/api/chat`.
+
+**Nota importante:** Por razones de seguridad, nunca debes incluir tu API Key de OpenAI directamente en el código frontend.
+
+## Recursos Adicionales
+
+* [Guía paso a paso](./GUIA-PASO-A-PASO.md) - Explicación detallada del desarrollo
+* [Convenciones de código](./README-CONVENCIONES.md) - Buenas prácticas de nombramiento y estructura
+* [Documentación API de OpenAI](https://platform.openai.com/docs/guides/text?api-mode=chat)
+* [Documentación de Fetch API](https://developer.mozilla.org/es/docs/Web/API/Fetch_API)
+
+
+## Licencia
+
+Este proyecto está bajo la licencia MIT.
+
